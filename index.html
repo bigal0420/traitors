@@ -3,22 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>The Traitors</title>
+<title>Lexi-o Party</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Bungee:wght@400&family=Inter:wght@400;500;600;700;800&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --bg: #0d0b14;
+    --card: #16121f;
+    --border: #2a2438;
+    --text: #ede8f5;
+    --text-muted: #8b7fa8;
+    --pink: #ff6b9d;
+    --pink-glow: rgba(255, 107, 157, 0.3);
+    --purple: #b36bff;
+    --purple-glow: rgba(179, 107, 255, 0.3);
+    --cyan: #00d4ff;
+    --cyan-glow: rgba(0, 212, 255, 0.25);
+    --team-a: #ff6b9d;
+    --team-b: #b36bff;
+    --green: #4ade80;
+    --red: #ff4a6e;
+  }
+
   body {
     font-family: 'Inter', sans-serif;
-    background: #0a0a0f;
-    color: #e8e0d4;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(179, 107, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(255, 107, 157, 0.06) 0%, transparent 60%);
   }
 
   .container {
@@ -47,43 +68,57 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 20px var(--pink-glow), 0 0 40px var(--purple-glow); }
+    50% { text-shadow: 0 0 30px var(--pink-glow), 0 0 60px var(--purple-glow); }
+  }
+
   h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: 0.08em;
+    font-family: 'Bungee', cursive;
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
+    font-family: 'Bungee', cursive;
+    font-size: 1.2rem;
+    letter-spacing: 0.03em;
     margin-bottom: 12px;
+    color: var(--text);
   }
 
   h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     margin-bottom: 8px;
+    color: var(--text-muted);
   }
 
   .subtitle {
-    font-size: 0.95rem;
-    color: #9a9088;
+    font-size: 0.9rem;
+    color: var(--text-muted);
     margin-bottom: 24px;
     line-height: 1.5;
   }
 
-  .ornament {
-    font-size: 1.6rem;
-    color: #6b5c4d;
-    margin-bottom: 20px;
-    letter-spacing: 0.3em;
+  .logo-icon {
+    font-size: 2.4rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 12px var(--pink-glow));
   }
 
   input[type="text"] {
@@ -91,59 +126,59 @@
     padding: 14px 18px;
     font-size: 1.1rem;
     font-family: 'Inter', sans-serif;
-    border: 1px solid #2a2520;
-    border-radius: 8px;
-    background: #141218;
-    color: #e8e0d4;
+    font-weight: 600;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--text);
     outline: none;
-    margin-bottom: 16px;
-    transition: border-color 0.2s;
+    margin-bottom: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
-  input[type="text"]:focus { border-color: #6b5c4d; }
-  input[type="text"]::placeholder { color: #5a5550; }
+  input[type="text"]:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px var(--purple-glow);
+  }
+  input[type="text"]::placeholder { color: #5a4f6e; }
 
   .room-code-input {
     text-transform: uppercase;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.4em;
     text-align: center;
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 800;
   }
 
   .btn {
     width: 100%;
     padding: 16px 24px;
     font-size: 1rem;
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.03em;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s;
     text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
   }
 
   .btn:active { transform: scale(0.97); }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
 
   .btn-primary {
-    background: linear-gradient(135deg, #4a3728, #6b4f3a);
-    color: #e8e0d4;
-    box-shadow: 0 4px 16px rgba(74, 55, 40, 0.4);
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: white;
+    box-shadow: 0 4px 20px var(--pink-glow);
   }
 
   .btn-danger {
-    background: linear-gradient(135deg, #5c1a1a, #8b2020);
-    color: #f0d0d0;
-    box-shadow: 0 4px 16px rgba(139, 32, 32, 0.3);
-  }
-
-  .btn-green {
-    background: linear-gradient(135deg, #1a4a2a, #207040);
-    color: #d0f0d8;
-    box-shadow: 0 4px 16px rgba(32, 96, 64, 0.3);
+    background: linear-gradient(135deg, #ff2d55, #ff4a6e);
+    color: white;
+    box-shadow: 0 4px 16px rgba(255, 45, 85, 0.3);
   }
 
   .btn-small {
@@ -152,102 +187,102 @@
     font-size: 0.8rem;
     display: inline-block;
     margin: 4px;
+    border-radius: 10px;
   }
 
   .btn + .btn { margin-top: 10px; }
 
   .error {
-    color: #d4604a;
-    font-size: 0.9rem;
+    color: var(--red);
+    font-size: 0.85rem;
     margin-bottom: 12px;
-    min-height: 20px;
+    min-height: 18px;
   }
 
   /* Room code display */
   .room-code-display {
-    font-family: 'Cinzel', serif;
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: 0.4em;
-    color: #d4af37;
-    margin: 16px 0;
-    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    font-family: 'Bungee', cursive;
+    font-size: 3.2rem;
+    letter-spacing: 0.35em;
+    margin: 12px 0;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: glow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px var(--cyan-glow));
   }
 
   /* Player list */
   .player-list {
     width: 100%;
     text-align: left;
-    margin: 16px 0;
+    margin: 12px 0;
   }
 
   .player-item {
     padding: 10px 14px;
-    border-bottom: 1px solid #1a1818;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
     font-size: 0.95rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .player-item:last-child { border-bottom: none; }
-  .player-item .team-tag {
-    font-size: 0.75rem;
+  .team-tag {
+    font-size: 0.7rem;
     padding: 3px 10px;
-    border-radius: 12px;
-    font-weight: 600;
+    border-radius: 8px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .team-tag.team-a { background: rgba(212, 175, 55, 0.2); color: #d4af37; }
-  .team-tag.team-b { background: rgba(147, 112, 219, 0.2); color: #9370db; }
+  .team-tag.team-a { background: rgba(255, 107, 157, 0.15); color: var(--team-a); }
+  .team-tag.team-b { background: rgba(179, 107, 255, 0.15); color: var(--team-b); }
 
   .player-count {
     font-size: 0.85rem;
-    color: #9a9088;
-    margin-bottom: 16px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
   }
 
   /* Briefing document */
   .briefing {
     width: 100%;
     text-align: left;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
   }
 
   .briefing-section {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     padding: 20px;
-    border-radius: 10px;
-    background: rgba(40, 35, 30, 0.5);
-    border: 1px solid rgba(100, 90, 70, 0.2);
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
     line-height: 1.7;
     font-size: 0.95rem;
   }
 
-  .briefing-section h3 {
-    color: #b0a898;
-    margin-bottom: 12px;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .briefing-section p { margin-bottom: 10px; }
+  .briefing-section h3 { margin-bottom: 10px; }
+  .briefing-section p { margin-bottom: 8px; }
   .briefing-section p:last-child { margin-bottom: 0; }
   .briefing-section ul { padding-left: 18px; margin-top: 6px; }
-  .briefing-section li { margin-bottom: 6px; }
+  .briefing-section li { margin-bottom: 4px; }
 
   /* Voting */
   .vote-card {
     width: 100%;
     padding: 18px 16px;
     margin-bottom: 10px;
-    border-radius: 10px;
-    background: #141218;
-    border: 2px solid #2a2520;
+    border-radius: 12px;
+    background: var(--card);
+    border: 2px solid var(--border);
     text-align: left;
     font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
@@ -257,24 +292,26 @@
 
   .vote-card:active { transform: scale(0.98); }
   .vote-card.selected {
-    border-color: #d4af37;
-    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--pink);
+    background: rgba(255, 107, 157, 0.08);
+    box-shadow: 0 0 0 3px var(--pink-glow);
   }
 
   .vote-card .vote-radio {
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    border: 2px solid #3a3530;
+    border: 2px solid #3a3050;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
   }
 
   .vote-card.selected .vote-radio {
-    border-color: #d4af37;
-    background: #d4af37;
+    border-color: var(--pink);
+    background: var(--pink);
   }
 
   .vote-card.selected .vote-radio::after {
@@ -282,80 +319,22 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #0a0a0f;
+    background: white;
   }
 
   /* Vote results */
-  .vote-tally {
-    width: 100%;
-    margin: 12px 0;
-  }
-
-  .tally-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    gap: 10px;
-  }
-
-  .tally-name {
-    width: 100px;
-    font-size: 0.9rem;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .tally-bar-wrap {
-    flex: 1;
-    height: 28px;
-    background: #1a1818;
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-  }
-
+  .vote-tally { width: 100%; margin: 12px 0; }
+  .tally-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+  .tally-name { width: 100px; font-size: 0.9rem; text-align: right; flex-shrink: 0; font-weight: 600; }
+  .tally-bar-wrap { flex: 1; height: 28px; background: #1e1830; border-radius: 8px; overflow: hidden; }
   .tally-bar {
     height: 100%;
-    background: linear-gradient(90deg, #4a3728, #6b4f3a);
-    border-radius: 6px;
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    border-radius: 8px;
     transition: width 0.6s ease;
     min-width: 2px;
   }
-
-  .tally-bar.detected-bar {
-    background: linear-gradient(90deg, #8b2020, #c03030);
-  }
-
-  .tally-count {
-    width: 30px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #9a9088;
-  }
-
-  .detected-banner {
-    width: 100%;
-    padding: 16px;
-    border-radius: 10px;
-    text-align: center;
-    margin: 16px 0;
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.04em;
-  }
-
-  .detected-banner.has-detected {
-    background: rgba(139, 32, 32, 0.2);
-    border: 1px solid rgba(139, 32, 32, 0.3);
-    color: #e06050;
-  }
-
-  .detected-banner.no-detected {
-    background: rgba(100, 90, 70, 0.15);
-    border: 1px solid rgba(100, 90, 70, 0.25);
-    color: #b0a898;
-  }
+  .tally-count { width: 30px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
 
   /* Host dashboard */
   .host-container {
@@ -366,12 +345,8 @@
     min-height: 100dvh;
   }
 
-  .host-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .host-header h1 { font-size: 1.3rem; margin-bottom: 4px; }
+  .host-header { text-align: center; margin-bottom: 20px; }
+  .host-header h1 { font-size: 1.2rem; margin-bottom: 6px; }
 
   .stats {
     display: grid;
@@ -382,41 +357,24 @@
 
   .stat-card {
     padding: 12px 8px;
-    border-radius: 10px;
-    background: #141218;
-    border: 1px solid #2a2520;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
     text-align: center;
   }
 
-  .stat-card .num {
-    font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-  }
-
-  .stat-card .label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #9a9088;
-    margin-top: 2px;
-  }
+  .stat-card .num { font-family: 'Bungee', cursive; font-size: 1.5rem; }
+  .stat-card .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-top: 2px; }
 
   .host-section {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     padding: 16px;
-    border-radius: 10px;
-    background: #141218;
-    border: 1px solid #2a2520;
+    border-radius: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
   }
 
-  .host-section h3 {
-    color: #b0a898;
-    margin-bottom: 12px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+  .host-section h3 { margin-bottom: 10px; }
 
   .host-actions {
     display: flex;
@@ -431,181 +389,109 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    border-bottom: 1px solid #1a1818;
+    border-bottom: 1px solid #1e1830;
     font-size: 0.85rem;
   }
-
   .host-player-row:last-child { border-bottom: none; }
-  .role-traitor { color: #e06050; font-weight: 600; }
-  .role-faithful { color: #50a0d0; }
-  .status-detected { color: #9a9088; text-decoration: line-through; }
+  .role-traitor { color: var(--red); font-weight: 700; }
+  .role-faithful { color: var(--cyan); }
 
-  .score-display {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin: 12px 0;
-  }
+  .score-display { display: flex; justify-content: center; gap: 30px; margin: 12px 0; }
+  .score-team { text-align: center; }
+  .score-team .score-num { font-family: 'Bungee', cursive; font-size: 2rem; }
+  .score-team .score-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 
-  .score-team {
-    text-align: center;
-  }
-
-  .score-team .score-num {
-    font-family: 'Cinzel', serif;
-    font-size: 2rem;
-    font-weight: 900;
-  }
-
-  .score-team .score-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #9a9088;
-  }
-
-  .mole-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin: 10px 0;
-  }
-
+  .mole-control { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 10px 0; }
   .mole-control .mole-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid #3a3530;
-    background: #1a1818;
-    color: #e8e0d4;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 2px solid var(--border); background: #1e1830;
+    color: var(--text); font-size: 1.2rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s;
   }
-
-  .mole-control .mole-count {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    min-width: 30px;
-    text-align: center;
-  }
+  .mole-control .mole-btn:active { border-color: var(--purple); }
+  .mole-control .mole-count { font-family: 'Bungee', cursive; font-size: 1.5rem; min-width: 30px; text-align: center; }
 
   /* Outcome */
   .outcome-card {
     width: 100%;
     padding: 24px 20px;
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 16px 0;
     text-align: center;
     line-height: 1.6;
   }
-
   .outcome-card.win {
-    background: rgba(32, 112, 64, 0.15);
-    border: 1px solid rgba(32, 112, 64, 0.3);
+    background: rgba(74, 222, 128, 0.1);
+    border: 2px solid rgba(74, 222, 128, 0.25);
   }
-
   .outcome-card.lose {
-    background: rgba(139, 32, 32, 0.15);
-    border: 1px solid rgba(139, 32, 32, 0.3);
+    background: rgba(255, 74, 110, 0.1);
+    border: 2px solid rgba(255, 74, 110, 0.25);
   }
-
   .outcome-card h2 { margin-bottom: 12px; }
 
-  /* Loading / connection */
-  .connection-status {
-    font-size: 0.8rem;
-    color: #6b5c4d;
-    margin-top: 16px;
-  }
+  .connection-status { font-size: 0.8rem; color: var(--text-muted); margin-top: 16px; }
 
   .spinner {
-    width: 36px;
-    height: 36px;
-    border: 3px solid #2a2520;
-    border-top-color: #6b5c4d;
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--purple);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin: 16px auto;
   }
-
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Tie-breaker */
-  .tie-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 10px 0;
-  }
-
-  .tie-option-btn {
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 1px solid #3a3530;
-    background: #1a1818;
-    color: #e8e0d4;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .tie-option-btn:hover { border-color: #6b5c4d; }
-
-  /* Misc */
-  .divider {
-    width: 60px;
-    height: 1px;
-    background: #2a2520;
-    margin: 20px auto;
-  }
-
-  .waiting-dots::after {
-    content: '';
-    animation: dots 1.5s steps(4, end) infinite;
-  }
-
+  .waiting-dots::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
   @keyframes dots {
-    0% { content: ''; }
-    25% { content: '.'; }
-    50% { content: '..'; }
-    75% { content: '...'; }
+    0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; }
   }
 
   .phase-badge {
     display: inline-block;
-    padding: 4px 12px;
-    border-radius: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-bottom: 12px;
   }
+  .phase-badge.lobby { background: rgba(139, 127, 168, 0.15); color: var(--text-muted); }
+  .phase-badge.reading { background: rgba(0, 212, 255, 0.1); color: var(--cyan); }
+  .phase-badge.playing { background: rgba(74, 222, 128, 0.1); color: var(--green); }
+  .phase-badge.voting { background: rgba(255, 107, 157, 0.1); color: var(--pink); }
+  .phase-badge.ended { background: rgba(179, 107, 255, 0.1); color: var(--purple); }
 
-  .phase-badge.lobby { background: rgba(100, 90, 70, 0.2); color: #b0a898; }
-  .phase-badge.reading { background: rgba(80, 160, 208, 0.15); color: #50a0d0; }
-  .phase-badge.playing { background: rgba(32, 112, 64, 0.15); color: #50c080; }
-  .phase-badge.voting { background: rgba(212, 175, 55, 0.15); color: #d4af37; }
-  .phase-badge.ended { background: rgba(139, 32, 32, 0.15); color: #e06050; }
+  /* Kuromi skull accent */
+  .kuromi-skull { font-size: 1rem; opacity: 0.5; }
+
+  /* Reconnecting overlay */
+  .reconnecting {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 8px; text-align: center;
+    background: rgba(179, 107, 255, 0.15);
+    color: var(--purple);
+    font-size: 0.8rem; font-weight: 600;
+    z-index: 100;
+    animation: pulse 1.5s infinite;
+  }
 </style>
 </head>
 <body>
+
+<div id="reconnectingBar" class="reconnecting" style="display:none;">Reconnecting<span class="waiting-dots"></span></div>
 
 <!-- ==================== PLAYER APP ==================== -->
 <div class="container" id="playerApp">
 
   <!-- Join Screen -->
   <div class="screen active" id="screenJoin">
-    <div class="ornament">&#9876; &#9876; &#9876;</div>
-    <h1>The Traitors</h1>
-    <p class="subtitle">Enter the room code and your name to join the game.</p>
-    <input type="text" id="roomInput" class="room-code-input" placeholder="ROOM CODE" maxlength="4" autocomplete="off" spellcheck="false">
+    <div class="logo-icon">&#127801;</div>
+    <h1>Lexi-o Party</h1>
+    <p class="subtitle">Enter the room code and your name to join.</p>
+    <input type="text" id="roomInput" class="room-code-input" placeholder="CODE" maxlength="4" autocomplete="off" spellcheck="false">
     <input type="text" id="nameInput" placeholder="Your name" autocomplete="off" autocapitalize="words" spellcheck="false">
     <div class="error" id="joinError"></div>
     <button class="btn btn-primary" id="joinBtn" onclick="playerJoin()">Join Game</button>
@@ -614,9 +500,9 @@
 
   <!-- Lobby Waiting -->
   <div class="screen" id="screenLobby">
-    <div class="ornament">&#128065;</div>
+    <div class="logo-icon">&#127918;</div>
     <h2>You're In!</h2>
-    <p class="subtitle">Waiting for the host to start the game<span class="waiting-dots"></span></p>
+    <p class="subtitle">Waiting for the host to start<span class="waiting-dots"></span></p>
     <div class="player-count" id="lobbyCount"></div>
     <div class="player-list" id="lobbyPlayers"></div>
   </div>
@@ -624,24 +510,24 @@
   <!-- Briefing (Reading Phase) -->
   <div class="screen" id="screenBriefing">
     <div class="briefing" id="briefingContent"></div>
-    <button class="btn btn-primary" id="doneReadingBtn" onclick="doneReading()">I've Read Everything</button>
-    <p class="subtitle" style="margin-top: 12px; font-size: 0.8rem;">Do not discuss what you read with anyone.</p>
+    <button class="btn btn-primary" id="doneReadingBtn" onclick="doneReading()">Got It</button>
+    <p class="subtitle" style="margin-top: 12px; font-size: 0.75rem;">Don't discuss what you read with anyone.</p>
   </div>
 
   <!-- Playing -->
   <div class="screen" id="screenPlaying">
-    <div class="ornament">&#9876;</div>
-    <h2>Game In Progress</h2>
-    <div id="playingTeam" class="team-badge" style="font-family: Cinzel, serif; font-size: 1.2rem; margin-bottom: 16px;"></div>
+    <div class="logo-icon">&#9876;&#65039;</div>
+    <h2>Game On</h2>
+    <div id="playingTeam" style="font-family: Bungee, cursive; font-size: 1.1rem; margin-bottom: 12px;"></div>
     <div id="playingRound" class="subtitle"></div>
-    <div id="playingStatus" style="margin-top: 12px;"></div>
-    <div class="score-display" id="playerScoreDisplay" style="margin-top: 20px;">
+    <div id="playingStatus" style="margin-top: 8px;"></div>
+    <div class="score-display" style="margin-top: 16px;">
       <div class="score-team">
-        <div class="score-num" id="pScoreA" style="color: #d4af37;">0</div>
+        <div class="score-num" id="pScoreA" style="color: var(--team-a);">0</div>
         <div class="score-label">Team A</div>
       </div>
       <div class="score-team">
-        <div class="score-num" id="pScoreB" style="color: #9370db;">0</div>
+        <div class="score-num" id="pScoreB" style="color: var(--team-b);">0</div>
         <div class="score-label">Team B</div>
       </div>
     </div>
@@ -649,29 +535,29 @@
 
   <!-- Voting -->
   <div class="screen" id="screenVoting">
-    <h2>Vote</h2>
-    <p class="subtitle" id="voteInstructions">Select one person on your team who you suspect is a traitor.</p>
+    <h2>&#128065;&#65039; Vote</h2>
+    <p class="subtitle" id="voteInstructions"></p>
     <div id="voteCards"></div>
     <button class="btn btn-primary" id="submitVoteBtn" onclick="submitVote()" disabled>Submit Vote</button>
   </div>
 
   <!-- Vote Submitted -->
   <div class="screen" id="screenVoteWait">
-    <div class="ornament">&#128065;</div>
-    <h2>Vote Submitted</h2>
-    <p class="subtitle">Waiting for everyone to vote<span class="waiting-dots"></span></p>
+    <div class="logo-icon">&#9203;</div>
+    <h2>Vote Locked In</h2>
+    <p class="subtitle">Waiting for everyone<span class="waiting-dots"></span></p>
   </div>
 
   <!-- Vote Results -->
   <div class="screen" id="screenVoteResults">
-    <h2>Vote Results</h2>
+    <h2>Results</h2>
     <div id="voteResultsContent"></div>
-    <p class="subtitle" style="margin-top: 20px;">Waiting for host to continue<span class="waiting-dots"></span></p>
+    <p class="subtitle" style="margin-top: 16px;">Waiting for host<span class="waiting-dots"></span></p>
   </div>
 
   <!-- Game Over -->
   <div class="screen" id="screenGameOver">
-    <h1>Game Over</h1>
+    <h1>GG</h1>
     <div id="gameOverContent"></div>
   </div>
 
@@ -680,7 +566,7 @@
 <!-- ==================== HOST APP ==================== -->
 <div class="host-container" id="hostApp" style="display:none;">
   <div class="host-header">
-    <h1>&#128081; Host Dashboard</h1>
+    <h1>&#127801; Lexi-o Party</h1>
     <span class="phase-badge lobby" id="hostPhaseBadge">Lobby</span>
   </div>
 
@@ -697,20 +583,20 @@
     <div style="text-align:center; margin-bottom: 20px;">
       <p class="subtitle" style="margin-bottom: 4px;">Room Code</p>
       <div class="room-code-display" id="hostRoomCode"></div>
-      <p class="subtitle" style="font-size: 0.8rem;">Share this code with your players</p>
+      <p class="subtitle" style="font-size: 0.75rem;">Share this code with your players</p>
     </div>
 
-    <div class="stats" id="hostLobbyStats">
+    <div class="stats">
       <div class="stat-card">
-        <div class="num" id="hostPlayerCount">0</div>
+        <div class="num" id="hostPlayerCount" style="color: var(--cyan);">0</div>
         <div class="label">Players</div>
       </div>
       <div class="stat-card">
-        <div class="num" id="hostMoleTarget" style="color: #e06050;">0</div>
+        <div class="num" id="hostMoleTarget" style="color: var(--red);">0</div>
         <div class="label">Moles</div>
       </div>
       <div class="stat-card">
-        <div class="num" id="hostTeamSize">0</div>
+        <div class="num" id="hostTeamSize" style="color: var(--purple);">0</div>
         <div class="label">Per Team</div>
       </div>
     </div>
@@ -722,13 +608,13 @@
         <div class="mole-count" id="moleCountDisplay">2</div>
         <button class="mole-btn" onclick="adjustMoles(1)">+</button>
       </div>
-      <p style="text-align:center; font-size:0.75rem; color:#9a9088;" id="moleRecommendation"></p>
+      <p style="text-align:center; font-size:0.7rem; color:var(--text-muted);" id="moleRecommendation"></p>
     </div>
 
     <div class="host-section">
       <h3>Players</h3>
       <div id="hostLobbyPlayers"></div>
-      <div style="text-align:center; color:#9a9088; font-size:0.85rem; padding: 8px;" id="hostNoPlayers">No players yet</div>
+      <div style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding: 8px;" id="hostNoPlayers">No players yet</div>
     </div>
 
     <div class="host-actions">
@@ -754,22 +640,22 @@
       <h3>Round <span id="hostRoundNum">1</span></h3>
       <div class="score-display">
         <div class="score-team">
-          <div class="score-num" id="hScoreA" style="color: #d4af37;">0</div>
+          <div class="score-num" id="hScoreA" style="color: var(--team-a);">0</div>
           <div class="score-label">Team A</div>
         </div>
         <div class="score-team">
-          <div class="score-num" id="hScoreB" style="color: #9370db;">0</div>
+          <div class="score-num" id="hScoreB" style="color: var(--team-b);">0</div>
           <div class="score-label">Team B</div>
         </div>
       </div>
       <div class="host-actions">
-        <button class="btn btn-small btn-primary" onclick="hostScoreRound('A')">Team A Won Round</button>
-        <button class="btn btn-small btn-primary" onclick="hostScoreRound('B')">Team B Won Round</button>
+        <button class="btn btn-small btn-primary" onclick="hostScoreRound('A')">Team A Won</button>
+        <button class="btn btn-small btn-primary" onclick="hostScoreRound('B')">Team B Won</button>
       </div>
     </div>
 
     <div class="host-section">
-      <h3>All Players</h3>
+      <h3>Players</h3>
       <div id="hostPlayingPlayers"></div>
     </div>
 
@@ -785,27 +671,27 @@
       <h3>Voting in Progress</h3>
       <div class="stats" style="margin-bottom: 0;">
         <div class="stat-card">
-          <div class="num" id="hVoteCountA" style="color: #d4af37;">0/0</div>
+          <div class="num" id="hVoteCountA" style="color: var(--team-a);">0/0</div>
           <div class="label">Team A</div>
         </div>
         <div class="stat-card">
-          <div class="num" id="hVoteCountB" style="color: #9370db;">0/0</div>
+          <div class="num" id="hVoteCountB" style="color: var(--team-b);">0/0</div>
           <div class="label">Team B</div>
         </div>
         <div class="stat-card">
-          <div class="num" id="hVoteCountTotal">0/0</div>
+          <div class="num" id="hVoteCountTotal" style="color: var(--cyan);">0/0</div>
           <div class="label">Total</div>
         </div>
       </div>
     </div>
 
     <div class="host-section" id="hostVoteTallies" style="display:none;">
-      <h3>Current Tallies</h3>
+      <h3>Live Tallies</h3>
       <div id="hostTalliesContent"></div>
     </div>
 
     <div class="host-actions">
-      <button class="btn btn-primary" id="closeVotingBtn" onclick="hostCloseVoting()">Close Voting & Tally</button>
+      <button class="btn btn-primary" onclick="hostCloseVoting()">Close Voting</button>
     </div>
   </div>
 
@@ -816,7 +702,7 @@
       <div id="hostVoteResultsContent"></div>
     </div>
     <div class="host-actions">
-      <button class="btn btn-primary" onclick="hostContinuePlaying()">Continue Playing</button>
+      <button class="btn btn-primary" onclick="hostContinuePlaying()">Continue</button>
       <button class="btn btn-danger" onclick="hostEndGame()">End Game</button>
     </div>
   </div>
@@ -825,14 +711,14 @@
   <div id="hostEndGame" style="display:none;">
     <div class="host-section">
       <h3>Declare Winner</h3>
-      <p style="text-align:center; font-size:0.9rem; color:#9a9088; margin-bottom: 12px;">Which team won overall?</p>
+      <p style="text-align:center; font-size:0.9rem; color:var(--text-muted); margin-bottom: 12px;">Which team won overall?</p>
       <div class="score-display">
         <div class="score-team">
-          <div class="score-num" id="finalScoreA" style="color: #d4af37;">0</div>
+          <div class="score-num" id="finalScoreA" style="color: var(--team-a);">0</div>
           <div class="score-label">Team A</div>
         </div>
         <div class="score-team">
-          <div class="score-num" id="finalScoreB" style="color: #9370db;">0</div>
+          <div class="score-num" id="finalScoreB" style="color: var(--team-b);">0</div>
           <div class="score-label">Team B</div>
         </div>
       </div>
@@ -841,9 +727,8 @@
         <button class="btn btn-small btn-primary" onclick="hostDeclareWinner('B')">Team B Wins</button>
       </div>
     </div>
-
     <div class="host-section">
-      <h3>All Players - Final</h3>
+      <h3>All Players</h3>
       <div id="hostEndPlayers"></div>
     </div>
   </div>
@@ -858,40 +743,35 @@
 // =====================================================
 const isHost = new URLSearchParams(window.location.search).get('host') === '1';
 
-// Host state
 let hostPeer = null;
 let roomCode = '';
-let connections = {}; // name -> DataConnection
+let connections = {};
 let gameState = {
-  phase: 'lobby', // lobby | reading | playing | voting | vote-results | ended
-  players: [],    // { name, team, role, detected, hasRead }
+  phase: 'lobby',
+  players: [],
   round: 1,
   voteRound: 0,
   scoreA: 0,
   scoreB: 0,
-  votes: {},      // current round votes: { voterName: targetName }
+  votes: {},
   voteResults: null,
   moleCount: 2,
   winner: null
 };
 
-// Player state
 let playerPeer = null;
 let playerConn = null;
 let myName = '';
-let myState = null; // personal state sent from host
+let myState = null;
 let selectedVote = null;
 let playerHasVoted = false;
 let playerLastVoteRound = 0;
+let isReconnecting = false;
 
 // =====================================================
 // UTILITY
 // =====================================================
-function esc(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
 const CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 function genRoomCode() {
@@ -913,12 +793,11 @@ function showScreen(id) {
 }
 
 function showHostSection(id) {
-  ['hostCreate', 'hostLobby', 'hostReading', 'hostPlaying', 'hostVoting', 'hostVoteResults', 'hostEndGame']
+  ['hostCreate','hostLobby','hostReading','hostPlaying','hostVoting','hostVoteResults','hostEndGame']
     .forEach(s => document.getElementById(s).style.display = 'none');
   document.getElementById(id).style.display = 'block';
-
   const badge = document.getElementById('hostPhaseBadge');
-  const labels = { lobby: 'Lobby', reading: 'Reading', playing: 'Playing', voting: 'Voting', 'vote-results': 'Results', ended: 'Ended' };
+  const labels = { lobby:'Lobby', reading:'Reading', playing:'Playing', voting:'Voting', 'vote-results':'Results', ended:'Ended' };
   badge.textContent = labels[gameState.phase] || gameState.phase;
   badge.className = 'phase-badge ' + (gameState.phase === 'vote-results' ? 'voting' : gameState.phase);
 }
@@ -926,14 +805,13 @@ function showHostSection(id) {
 // =====================================================
 // HOST LOGIC
 // =====================================================
-
 function hostCreateRoom() {
   roomCode = genRoomCode();
   document.getElementById('hostRoomCode').textContent = roomCode;
   gameState.moleCount = 2;
   document.getElementById('moleCountDisplay').textContent = '2';
 
-  const peerId = 'traitors-' + roomCode.toLowerCase();
+  const peerId = 'lexioparty-' + roomCode.toLowerCase();
   hostPeer = new Peer(peerId);
 
   hostPeer.on('open', function() {
@@ -943,13 +821,7 @@ function hostCreateRoom() {
 
   hostPeer.on('connection', function(conn) {
     conn.on('open', function() {
-      conn.on('data', function(msg) {
-        handlePlayerMessage(conn, msg);
-      });
-    });
-
-    conn.on('close', function() {
-      // Mark disconnected but don't remove - they might reconnect
+      conn.on('data', function(msg) { handlePlayerMessage(conn, msg); });
     });
   });
 
@@ -966,55 +838,34 @@ function hostCreateRoom() {
 function handlePlayerMessage(conn, msg) {
   if (msg.type === 'join') {
     const name = msg.payload.name;
-
-    // Check for reconnection
     const existing = gameState.players.find(p => p.name.toLowerCase() === name.toLowerCase());
     if (existing) {
       connections[existing.name] = conn;
       sendPlayerState(existing.name);
       return;
     }
-
     if (gameState.phase !== 'lobby') {
-      conn.send({ type: 'error', payload: { message: 'Game has already started.' } });
+      conn.send({ type: 'error', payload: { message: 'Game already started.' } });
       return;
     }
-
-    // Check duplicate name
     if (gameState.players.find(p => p.name.toLowerCase() === name.toLowerCase())) {
-      conn.send({ type: 'error', payload: { message: 'Name already taken.' } });
+      conn.send({ type: 'error', payload: { message: 'Name taken.' } });
       return;
     }
-
-    gameState.players.push({
-      name: name,
-      team: null,
-      role: null,
-      detected: false,
-      hasRead: false
-    });
-
+    gameState.players.push({ name, team: null, role: null, hasRead: false });
     connections[name] = conn;
     renderHostLobby();
     broadcastLobby();
   }
-
   else if (msg.type === 'reading-done') {
     const player = gameState.players.find(p => p.name === msg.payload.name);
-    if (player) {
-      player.hasRead = true;
-      renderHostReading();
-    }
+    if (player) { player.hasRead = true; renderHostReading(); }
   }
-
   else if (msg.type === 'vote') {
     if (gameState.phase !== 'voting') return;
-    const voterName = msg.payload.voterName;
-    const targetName = msg.payload.targetName;
-    const voter = gameState.players.find(p => p.name === voterName);
+    const voter = gameState.players.find(p => p.name === msg.payload.voterName);
     if (!voter) return;
-
-    gameState.votes[voterName] = targetName;
+    gameState.votes[msg.payload.voterName] = msg.payload.targetName;
     renderHostVoting();
   }
 }
@@ -1023,79 +874,46 @@ function broadcastLobby() {
   const names = gameState.players.map(p => p.name);
   gameState.players.forEach(p => {
     const conn = connections[p.name];
-    if (conn && conn.open) {
-      conn.send({ type: 'lobby', payload: { players: names } });
-    }
+    if (conn && conn.open) conn.send({ type: 'lobby', payload: { players: names } });
   });
 }
 
 function sendPlayerState(name) {
   const conn = connections[name];
   if (!conn || !conn.open) return;
-
   const player = gameState.players.find(p => p.name === name);
   if (!player) return;
 
-  const allPlayers = gameState.players.map(p => ({
-    name: p.name,
-    team: p.team,
-    detected: p.detected
-  }));
-
-  // Build fellow traitors list for traitors only
   let fellowTraitors = [];
   if (player.role === 'Traitor') {
-    fellowTraitors = gameState.players
-      .filter(p => p.role === 'Traitor' && p.name !== name)
-      .map(p => ({ name: p.name, team: p.team }));
+    fellowTraitors = gameState.players.filter(p => p.role === 'Traitor' && p.name !== name).map(p => ({ name: p.name, team: p.team }));
   }
 
-  conn.send({
-    type: 'state',
-    payload: {
-      phase: gameState.phase,
-      name: player.name,
-      team: player.team,
-      role: player.role,
-      detected: player.detected,
-      hasRead: player.hasRead,
-      players: allPlayers,
-      fellowTraitors: fellowTraitors,
-      round: gameState.round,
-      voteRound: gameState.voteRound,
-      scoreA: gameState.scoreA,
-      scoreB: gameState.scoreB,
-      voteResults: gameState.voteResults,
-      winner: gameState.winner
-    }
-  });
+  conn.send({ type: 'state', payload: {
+    phase: gameState.phase, name: player.name, team: player.team,
+    role: player.role, hasRead: player.hasRead,
+    players: gameState.players.map(p => ({ name: p.name, team: p.team })),
+    fellowTraitors, round: gameState.round, voteRound: gameState.voteRound,
+    scoreA: gameState.scoreA, scoreB: gameState.scoreB,
+    voteResults: gameState.voteResults, winner: gameState.winner
+  }});
 }
 
-function broadcastState() {
-  gameState.players.forEach(p => sendPlayerState(p.name));
-}
+function broadcastState() { gameState.players.forEach(p => sendPlayerState(p.name)); }
 
 function renderHostLobby() {
   const count = gameState.players.length;
   document.getElementById('hostPlayerCount').textContent = count;
   document.getElementById('hostTeamSize').textContent = Math.ceil(count / 2);
-
-  const rec = recommendedMoles(count || 1);
   document.getElementById('hostMoleTarget').textContent = gameState.moleCount;
-  document.getElementById('moleRecommendation').textContent = 'Recommended: ' + rec + ' for ' + count + ' players';
-
+  document.getElementById('moleRecommendation').textContent = 'Recommended: ' + recommendedMoles(count || 1) + ' for ' + count + ' players';
   const list = document.getElementById('hostLobbyPlayers');
-  const noPlayers = document.getElementById('hostNoPlayers');
-  if (count === 0) {
-    list.innerHTML = '';
-    noPlayers.style.display = 'block';
-  } else {
-    noPlayers.style.display = 'none';
-    list.innerHTML = gameState.players.map(p =>
-      '<div class="host-player-row"><span>' + esc(p.name) + '</span></div>'
-    ).join('');
+  const noP = document.getElementById('hostNoPlayers');
+  if (count === 0) { list.innerHTML = ''; noP.style.display = 'block'; }
+  else {
+    noP.style.display = 'none';
+    list.innerHTML = gameState.players.map(p => '<div class="host-player-row"><span>' + esc(p.name) + '</span></div>').join('');
   }
-
   document.getElementById('startGameBtn').disabled = count < 4;
 }
 
@@ -1109,42 +927,18 @@ function hostStartGame() {
   const players = gameState.players;
   const n = players.length;
   if (n < 4) return;
-
-  // Shuffle players
-  for (let i = n - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [players[i], players[j]] = [players[j], players[i]];
-  }
-
-  // Assign teams - alternate to balance
+  for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [players[i], players[j]] = [players[j], players[i]]; }
   const half = Math.ceil(n / 2);
-  players.forEach((p, i) => {
-    p.team = i < half ? 'A' : 'B';
-    p.role = 'Faithful';
-    p.detected = false;
-    p.hasRead = false;
-  });
-
-  // Assign moles
+  players.forEach((p, i) => { p.team = i < half ? 'A' : 'B'; p.role = 'Faithful'; p.hasRead = false; });
   const moleCount = gameState.moleCount;
   const teamA = players.filter(p => p.team === 'A');
   const teamB = players.filter(p => p.team === 'B');
-  const molesPerTeamA = Math.ceil(moleCount / 2);
-  const molesPerTeamB = moleCount - molesPerTeamA;
-
-  // Shuffle each team for random mole assignment
-  for (let i = teamA.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [teamA[i], teamA[j]] = [teamA[j], teamA[i]];
-  }
-  for (let i = teamB.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [teamB[i], teamB[j]] = [teamB[j], teamB[i]];
-  }
-
-  for (let i = 0; i < molesPerTeamA && i < teamA.length; i++) teamA[i].role = 'Traitor';
-  for (let i = 0; i < molesPerTeamB && i < teamB.length; i++) teamB[i].role = 'Traitor';
-
+  for (let i = teamA.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [teamA[i], teamA[j]] = [teamA[j], teamA[i]]; }
+  for (let i = teamB.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [teamB[i], teamB[j]] = [teamB[j], teamB[i]]; }
+  const molesA = Math.ceil(moleCount / 2);
+  const molesB = moleCount - molesA;
+  for (let i = 0; i < molesA && i < teamA.length; i++) teamA[i].role = 'Traitor';
+  for (let i = 0; i < molesB && i < teamB.length; i++) teamB[i].role = 'Traitor';
   gameState.phase = 'reading';
   broadcastState();
   showHostSection('hostReading');
@@ -1153,171 +947,100 @@ function hostStartGame() {
 
 function renderHostReading() {
   const done = gameState.players.filter(p => p.hasRead).length;
-  const total = gameState.players.length;
-  document.getElementById('readingProgress').textContent = done + ' / ' + total + ' done';
-
+  document.getElementById('readingProgress').textContent = done + ' / ' + gameState.players.length + ' done';
   document.getElementById('hostReadingPlayers').innerHTML = gameState.players.map(p => {
-    const status = p.hasRead ? '&#10003;' : '&#8987;';
     const cls = p.role === 'Traitor' ? 'role-traitor' : 'role-faithful';
-    return '<div class="host-player-row">' +
-      '<span>' + esc(p.name) + ' <span class="' + cls + '">(' + p.role + ')</span></span>' +
-      '<span>' + status + '</span>' +
-      '</div>';
+    return '<div class="host-player-row"><span>' + esc(p.name) + ' <span class="' + cls + '">(' + p.role + ')</span></span><span>' + (p.hasRead ? '&#10003;' : '&#8987;') + '</span></div>';
   }).join('');
 }
 
-function hostBeginGames() {
-  gameState.phase = 'playing';
-  gameState.round = 1;
-  broadcastState();
-  showHostSection('hostPlaying');
-  renderHostPlaying();
-}
+function hostBeginGames() { gameState.phase = 'playing'; gameState.round = 1; broadcastState(); showHostSection('hostPlaying'); renderHostPlaying(); }
 
 function renderHostPlaying() {
   document.getElementById('hostRoundNum').textContent = gameState.round;
   document.getElementById('hScoreA').textContent = gameState.scoreA;
   document.getElementById('hScoreB').textContent = gameState.scoreB;
-
   document.getElementById('hostPlayingPlayers').innerHTML = gameState.players.map(p => {
     const cls = p.role === 'Traitor' ? 'role-traitor' : 'role-faithful';
     const teamCls = p.team === 'A' ? 'team-a' : 'team-b';
-    return '<div class="host-player-row">' +
-      '<span>' + esc(p.name) + '</span>' +
-      '<span><span class="team-tag ' + teamCls + '">Team ' + p.team + '</span> <span class="' + cls + '">' + p.role + '</span></span>' +
-      '</div>';
+    return '<div class="host-player-row"><span>' + esc(p.name) + '</span><span><span class="team-tag ' + teamCls + '">Team ' + p.team + '</span> <span class="' + cls + '">' + p.role + '</span></span></div>';
   }).join('');
 }
 
 function hostScoreRound(team) {
-  if (team === 'A') gameState.scoreA++;
-  else gameState.scoreB++;
+  if (team === 'A') gameState.scoreA++; else gameState.scoreB++;
   gameState.round++;
   broadcastState();
   renderHostPlaying();
 }
 
 function hostStartVote() {
-  gameState.phase = 'voting';
-  gameState.voteRound++;
-  gameState.votes = {};
-  gameState.voteResults = null;
-  broadcastState();
-  showHostSection('hostVoting');
-  renderHostVoting();
+  gameState.phase = 'voting'; gameState.voteRound++; gameState.votes = {}; gameState.voteResults = null;
+  broadcastState(); showHostSection('hostVoting'); renderHostVoting();
 }
 
 function renderHostVoting() {
-  const eligibleA = gameState.players.filter(p => p.team === 'A');
-  const eligibleB = gameState.players.filter(p => p.team === 'B');
-  const votedA = eligibleA.filter(p => gameState.votes[p.name]).length;
-  const votedB = eligibleB.filter(p => gameState.votes[p.name]).length;
-
-  document.getElementById('hVoteCountA').textContent = votedA + '/' + eligibleA.length;
-  document.getElementById('hVoteCountB').textContent = votedB + '/' + eligibleB.length;
-  document.getElementById('hVoteCountTotal').textContent = (votedA + votedB) + '/' + (eligibleA.length + eligibleB.length);
-
-  // Show live tallies
+  const eA = gameState.players.filter(p => p.team === 'A');
+  const eB = gameState.players.filter(p => p.team === 'B');
+  const vA = eA.filter(p => gameState.votes[p.name]).length;
+  const vB = eB.filter(p => gameState.votes[p.name]).length;
+  document.getElementById('hVoteCountA').textContent = vA + '/' + eA.length;
+  document.getElementById('hVoteCountB').textContent = vB + '/' + eB.length;
+  document.getElementById('hVoteCountTotal').textContent = (vA + vB) + '/' + (eA.length + eB.length);
   if (Object.keys(gameState.votes).length > 0) {
     document.getElementById('hostVoteTallies').style.display = 'block';
-    const talliesA = {};
-    const talliesB = {};
-
+    const tA = {}, tB = {};
     Object.entries(gameState.votes).forEach(([voter, target]) => {
-      const voterPlayer = gameState.players.find(p => p.name === voter);
-      if (voterPlayer.team === 'A') {
-        talliesA[target] = (talliesA[target] || 0) + 1;
-      } else {
-        talliesB[target] = (talliesB[target] || 0) + 1;
-      }
+      const vp = gameState.players.find(p => p.name === voter);
+      if (vp.team === 'A') tA[target] = (tA[target]||0)+1; else tB[target] = (tB[target]||0)+1;
     });
-
-    let html = '<p style="font-size:0.8rem; color:#d4af37; margin-bottom:6px;">Team A:</p>';
-    eligibleA.forEach(p => {
-      const count = talliesA[p.name] || 0;
-      const cls = p.role === 'Traitor' ? 'role-traitor' : '';
-      html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(p.name) + '</span>: ' + count + ' votes</div>';
-    });
-
-    html += '<p style="font-size:0.8rem; color:#9370db; margin-bottom:6px; margin-top:10px;">Team B:</p>';
-    eligibleB.forEach(p => {
-      const count = talliesB[p.name] || 0;
-      const cls = p.role === 'Traitor' ? 'role-traitor' : '';
-      html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(p.name) + '</span>: ' + count + ' votes</div>';
-    });
-
+    let html = '<p style="font-size:0.8rem; color:var(--team-a); margin-bottom:4px;">Team A:</p>';
+    eA.forEach(p => { const cls = p.role === 'Traitor' ? 'role-traitor' : ''; html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(p.name) + '</span>: ' + (tA[p.name]||0) + '</div>'; });
+    html += '<p style="font-size:0.8rem; color:var(--team-b); margin-bottom:4px; margin-top:8px;">Team B:</p>';
+    eB.forEach(p => { const cls = p.role === 'Traitor' ? 'role-traitor' : ''; html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(p.name) + '</span>: ' + (tB[p.name]||0) + '</div>'; });
     document.getElementById('hostTalliesContent').innerHTML = html;
   }
 }
 
 function hostCloseVoting() {
-  // Tally votes per team
   const tallies = { A: {}, B: {} };
   Object.entries(gameState.votes).forEach(([voter, target]) => {
-    const voterPlayer = gameState.players.find(p => p.name === voter);
-    const team = voterPlayer.team;
-    tallies[team][target] = (tallies[team][target] || 0) + 1;
+    const team = gameState.players.find(p => p.name === voter).team;
+    tallies[team][target] = (tallies[team][target]||0)+1;
   });
-
-  const results = {
-    A: { tallies: tallies.A },
-    B: { tallies: tallies.B }
-  };
-
-  gameState.voteResults = results;
+  gameState.voteResults = { A: { tallies: tallies.A }, B: { tallies: tallies.B } };
   gameState.phase = 'vote-results';
-  broadcastState();
-  showHostSection('hostVoteResults');
-  renderHostVoteResults();
+  broadcastState(); showHostSection('hostVoteResults'); renderHostVoteResults();
 }
 
 function renderHostVoteResults() {
   const results = gameState.voteResults;
   let html = '';
-
-  ['A', 'B'].forEach(team => {
-    const r = results[team];
-    const color = team === 'A' ? '#d4af37' : '#9370db';
-    html += '<p style="font-size:0.9rem; color:' + color + '; margin-bottom:8px;">Team ' + team + '</p>';
-
-    const entries = Object.entries(r.tallies || {}).sort((a, b) => b[1] - a[1]);
-    if (entries.length === 0) {
-      html += '<p style="font-size:0.85rem; color:#9a9088;">No votes cast</p>';
-    } else {
-      entries.forEach(([name, count]) => {
-        const player = gameState.players.find(p => p.name === name);
-        const cls = player && player.role === 'Traitor' ? 'role-traitor' : '';
-        html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(name) + '</span>: ' + count + ' vote' + (count > 1 ? 's' : '') + '</div>';
-      });
-    }
-
-    html += '<div style="margin-bottom:16px;"></div>';
+  ['A','B'].forEach(team => {
+    html += '<p style="font-size:0.9rem; color:var(--team-' + team.toLowerCase() + '); margin-bottom:6px;">Team ' + team + '</p>';
+    const entries = Object.entries(results[team].tallies||{}).sort((a,b) => b[1]-a[1]);
+    if (!entries.length) html += '<p style="font-size:0.85rem; color:var(--text-muted);">No votes</p>';
+    else entries.forEach(([name, count]) => {
+      const p = gameState.players.find(p => p.name === name);
+      const cls = p && p.role === 'Traitor' ? 'role-traitor' : '';
+      html += '<div style="font-size:0.85rem; padding:2px 0;"><span class="' + cls + '">' + esc(name) + '</span>: ' + count + '</div>';
+    });
+    html += '<div style="margin-bottom:12px;"></div>';
   });
-
   document.getElementById('hostVoteResultsContent').innerHTML = html;
 }
 
-function hostContinuePlaying() {
-  gameState.phase = 'playing';
-  gameState.voteResults = null;
-  broadcastState();
-  showHostSection('hostPlaying');
-  renderHostPlaying();
-}
+function hostContinuePlaying() { gameState.phase = 'playing'; gameState.voteResults = null; broadcastState(); showHostSection('hostPlaying'); renderHostPlaying(); }
 
 function hostEndGame() {
   gameState.phase = 'ended';
   showHostSection('hostEndGame');
   document.getElementById('finalScoreA').textContent = gameState.scoreA;
   document.getElementById('finalScoreB').textContent = gameState.scoreB;
-
   document.getElementById('hostEndPlayers').innerHTML = gameState.players.map(p => {
     const cls = p.role === 'Traitor' ? 'role-traitor' : 'role-faithful';
     const teamCls = p.team === 'A' ? 'team-a' : 'team-b';
-    return '<div class="host-player-row">' +
-      '<span>' + esc(p.name) + '</span>' +
-      '<span><span class="team-tag ' + teamCls + '">Team ' + p.team + '</span> <span class="' + cls + '">' + p.role + '</span></span>' +
-      '</div>';
+    return '<div class="host-player-row"><span>' + esc(p.name) + '</span><span><span class="team-tag ' + teamCls + '">Team ' + p.team + '</span> <span class="' + cls + '">' + p.role + '</span></span></div>';
   }).join('');
 }
 
@@ -1325,31 +1048,19 @@ function hostDeclareWinner(winningTeam) {
   gameState.winner = winningTeam;
   gameState.phase = 'ended';
   broadcastState();
-
-  const losingTeam = winningTeam === 'A' ? 'B' : 'A';
-
   let html = '<div style="text-align:center;">';
-  html += '<h2 style="margin-bottom: 20px;">Team ' + winningTeam + ' Wins!</h2>';
-
-  // Show all traitors for the big reveal
-  html += '<p style="font-size:0.9rem; color:#9a9088; margin-bottom:12px;">The traitors were:</p>';
-  const traitors = gameState.players.filter(p => p.role === 'Traitor');
-  traitors.forEach(t => {
-    const teamCls = t.team === 'A' ? 'team-a' : 'team-b';
-    html += '<p style="font-size:1rem; margin-bottom:4px;"><strong class="role-traitor">' + esc(t.name) + '</strong> <span class="team-tag ' + teamCls + '" style="font-size:0.7rem;">Team ' + t.team + '</span></p>';
+  html += '<h2 style="margin-bottom: 16px;">Team ' + winningTeam + ' Wins!</h2>';
+  html += '<p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">The moles were:</p>';
+  gameState.players.filter(p => p.role === 'Traitor').forEach(t => {
+    html += '<p style="font-size:1rem; margin-bottom:4px;"><strong class="role-traitor">' + esc(t.name) + '</strong> <span class="team-tag team-' + t.team.toLowerCase() + '" style="font-size:0.7rem;">Team ' + t.team + '</span></p>';
   });
-
   html += '</div>';
-
-  // Replace the end game section content
-  const section = document.getElementById('hostEndGame');
-  section.innerHTML = '<div class="host-section">' + html + '</div>';
+  document.getElementById('hostEndGame').innerHTML = '<div class="host-section">' + html + '</div>';
 }
 
 // =====================================================
 // PLAYER LOGIC
 // =====================================================
-
 function playerJoin() {
   const code = document.getElementById('roomInput').value.trim().toUpperCase();
   const name = document.getElementById('nameInput').value.trim();
@@ -1364,57 +1075,70 @@ function playerJoin() {
   btn.disabled = true;
   btn.textContent = 'Connecting...';
   statusEl.textContent = 'Looking for room...';
-
   myName = name;
+
+  if (playerPeer && !playerPeer.destroyed) playerPeer.destroy();
 
   playerPeer = new Peer();
   playerPeer.on('open', function() {
-    const hostId = 'traitors-' + code.toLowerCase();
+    const hostId = 'lexioparty-' + code.toLowerCase();
     playerConn = playerPeer.connect(hostId, { reliable: true });
 
     const timeout = setTimeout(function() {
-      errEl.textContent = 'Could not find room "' + code + '". Check the code and try again.';
-      btn.disabled = false;
-      btn.textContent = 'Join Game';
-      statusEl.textContent = '';
+      errEl.textContent = 'Could not find room "' + code + '".';
+      btn.disabled = false; btn.textContent = 'Join Game'; statusEl.textContent = '';
+      if (isReconnecting) { isReconnecting = false; document.getElementById('reconnectingBar').style.display = 'none'; }
       playerPeer.destroy();
     }, 8000);
 
     playerConn.on('open', function() {
       clearTimeout(timeout);
       statusEl.textContent = 'Connected!';
+      if (isReconnecting) { isReconnecting = false; document.getElementById('reconnectingBar').style.display = 'none'; }
       playerConn.send({ type: 'join', payload: { name: myName } });
-
-      // Save for reconnection
-      try {
-        sessionStorage.setItem('traitors_room', code);
-        sessionStorage.setItem('traitors_name', myName);
-      } catch(e) {}
+      try { sessionStorage.setItem('lp_room', code); sessionStorage.setItem('lp_name', myName); } catch(e) {}
     });
 
-    playerConn.on('data', function(msg) {
-      handleHostMessage(msg);
-    });
+    playerConn.on('data', function(msg) { handleHostMessage(msg); });
 
     playerConn.on('close', function() {
-      statusEl.textContent = 'Disconnected. Refresh to reconnect.';
+      // Auto-reconnect after a short delay
+      setTimeout(function() { attemptReconnect(); }, 1500);
     });
 
     playerConn.on('error', function() {
       clearTimeout(timeout);
-      errEl.textContent = 'Connection error. Try again.';
-      btn.disabled = false;
-      btn.textContent = 'Join Game';
-      statusEl.textContent = '';
+      if (isReconnecting) {
+        setTimeout(function() { attemptReconnect(); }, 3000);
+      } else {
+        errEl.textContent = 'Connection error. Try again.';
+        btn.disabled = false; btn.textContent = 'Join Game'; statusEl.textContent = '';
+      }
     });
   });
 
-  playerPeer.on('error', function(err) {
-    errEl.textContent = 'Connection error. Try again.';
-    btn.disabled = false;
-    btn.textContent = 'Join Game';
-    statusEl.textContent = '';
+  playerPeer.on('error', function() {
+    if (isReconnecting) {
+      setTimeout(function() { attemptReconnect(); }, 3000);
+    } else {
+      errEl.textContent = 'Connection error. Try again.';
+      btn.disabled = false; btn.textContent = 'Join Game'; statusEl.textContent = '';
+    }
   });
+}
+
+function attemptReconnect() {
+  try {
+    const savedRoom = sessionStorage.getItem('lp_room');
+    const savedName = sessionStorage.getItem('lp_name');
+    if (savedRoom && savedName) {
+      isReconnecting = true;
+      document.getElementById('reconnectingBar').style.display = 'block';
+      document.getElementById('roomInput').value = savedRoom;
+      document.getElementById('nameInput').value = savedName;
+      playerJoin();
+    }
+  } catch(e) {}
 }
 
 function handleHostMessage(msg) {
@@ -1425,46 +1149,34 @@ function handleHostMessage(msg) {
     document.getElementById('joinStatus').textContent = '';
     return;
   }
-
   if (msg.type === 'lobby') {
     showScreen('screenLobby');
     const names = msg.payload.players;
-    document.getElementById('lobbyCount').textContent = names.length + ' player' + (names.length !== 1 ? 's' : '') + ' joined';
+    document.getElementById('lobbyCount').textContent = names.length + ' player' + (names.length !== 1 ? 's' : '');
     document.getElementById('lobbyPlayers').innerHTML = names.map(n =>
-      '<div class="player-item"><span>' + esc(n) + '</span>' + (n === myName ? '<span style="color:#6b5c4d; font-size:0.8rem;">You</span>' : '') + '</div>'
+      '<div class="player-item"><span>' + esc(n) + '</span>' + (n === myName ? '<span style="color:var(--purple); font-size:0.75rem; font-weight:700;">YOU</span>' : '') + '</div>'
     ).join('');
     return;
   }
-
-  if (msg.type === 'state') {
-    myState = msg.payload;
-    renderPlayerState();
-  }
+  if (msg.type === 'state') { myState = msg.payload; renderPlayerState(); }
 }
 
 function renderPlayerState() {
   if (!myState) return;
-
-  // Reset vote flag if new vote round
-  if (myState.voteRound !== playerLastVoteRound) {
-    playerHasVoted = false;
-  }
-
+  if (myState.voteRound !== playerLastVoteRound) playerHasVoted = false;
   const phase = myState.phase;
 
   if (phase === 'reading') {
+    showScreen('screenBriefing');
     if (!myState.hasRead) {
-      showScreen('screenBriefing');
       document.getElementById('briefingContent').innerHTML = buildBriefing(myState);
       document.getElementById('doneReadingBtn').disabled = false;
-      document.getElementById('doneReadingBtn').textContent = "I've Read Everything";
+      document.getElementById('doneReadingBtn').textContent = "Got It";
     } else {
-      showScreen('screenBriefing');
       document.getElementById('doneReadingBtn').disabled = true;
-      document.getElementById('doneReadingBtn').textContent = 'Waiting for host to begin...';
+      document.getElementById('doneReadingBtn').textContent = 'Waiting for host...';
     }
   }
-
   else if (phase === 'playing') {
     showScreen('screenPlaying');
     document.getElementById('playingTeam').textContent = 'Team ' + myState.team;
@@ -1473,66 +1185,43 @@ function renderPlayerState() {
     document.getElementById('pScoreB').textContent = myState.scoreB;
     document.getElementById('playingStatus').innerHTML = '';
   }
-
   else if (phase === 'voting') {
-    if (playerHasVoted) {
-      showScreen('screenVoteWait');
-    } else {
-      showScreen('screenVoting');
-      selectedVote = null;
-      document.getElementById('submitVoteBtn').disabled = true;
-      renderVoteCards();
-    }
+    if (playerHasVoted) showScreen('screenVoteWait');
+    else { showScreen('screenVoting'); selectedVote = null; document.getElementById('submitVoteBtn').disabled = true; renderVoteCards(); }
   }
-
-  else if (phase === 'vote-results') {
-    showScreen('screenVoteResults');
-    renderVoteResults();
-  }
-
-  else if (phase === 'ended') {
-    showScreen('screenGameOver');
-    renderGameOver();
-  }
+  else if (phase === 'vote-results') { showScreen('screenVoteResults'); renderVoteResults(); }
+  else if (phase === 'ended') { showScreen('screenGameOver'); renderGameOver(); }
 }
 
 function buildBriefing(state) {
   const team = state.team;
   const isTraitor = state.role === 'Traitor';
-
   let html = '';
 
-  // Everyone sees: team assignment + do not share screen
   html += '<div class="briefing-section">';
-  html += '<h3>Your Assignment</h3>';
+  html += '<h3>Your Team</h3>';
   html += '<p>You are on <strong>Team ' + team + '</strong>.</p>';
-  html += '<p>Do not show your screen to anyone.</p>';
+  html += '<p style="font-size:0.85rem; color:var(--text-muted);">Do not show your screen to anyone.</p>';
   html += '</div>';
 
   if (isTraitor) {
-    // Traitor-only section
-    html += '<div class="briefing-section">';
-    html += '<h3 style="color: #e06050;">You Are a Traitor</h3>';
-    html += '<p>Your mission: <strong>make your team lose</strong> without getting caught. Sabotage subtly. Blend in. Act like you are trying your hardest.</p>';
-
+    html += '<div class="briefing-section" style="border-color: rgba(255, 74, 110, 0.3);">';
+    html += '<h3 style="color: var(--red);">&#128520; Secret Role</h3>';
+    html += '<p>You are a <strong style="color:var(--red);">mole</strong>. Your mission: <strong>make your team lose</strong> without getting caught.</p>';
+    html += '<p>Sabotage subtly. Blend in. Act like you\'re trying your hardest.</p>';
     if (state.fellowTraitors && state.fellowTraitors.length > 0) {
-      html += '<p style="margin-top:10px;"><strong>Your fellow traitors:</strong></p><ul>';
-      state.fellowTraitors.forEach(t => {
-        html += '<li>' + esc(t.name) + ' (Team ' + t.team + ')</li>';
-      });
+      html += '<p style="margin-top:8px;"><strong>Your fellow moles:</strong></p><ul>';
+      state.fellowTraitors.forEach(t => { html += '<li>' + esc(t.name) + ' (Team ' + t.team + ')</li>'; });
       html += '</ul>';
     }
-
-    html += '<p style="margin-top:10px;"><strong>Do NOT reveal that you are a traitor.</strong> The others do not know traitors exist yet. Act completely normal.</p>';
+    html += '<p style="margin-top:8px; color:var(--red); font-weight:700;">Do NOT reveal your role. The others don\'t know moles exist yet.</p>';
     html += '</div>';
   } else {
-    // Faithful - keep it simple, no hint of traitors
     html += '<div class="briefing-section">';
     html += '<h3>Your Goal</h3>';
-    html += '<p>Play your best in every game and help your team win. Every round counts. Communicate and coordinate with your teammates.</p>';
+    html += '<p>Play your best in every game and help your team win. Every round counts!</p>';
     html += '</div>';
   }
-
   return html;
 }
 
@@ -1541,28 +1230,17 @@ function doneReading() {
     playerConn.send({ type: 'reading-done', payload: { name: myName } });
     myState.hasRead = true;
     document.getElementById('doneReadingBtn').disabled = true;
-    document.getElementById('doneReadingBtn').textContent = 'Waiting for host to begin...';
+    document.getElementById('doneReadingBtn').textContent = 'Waiting for host...';
   }
 }
 
 function renderVoteCards() {
   if (!myState) return;
-  const teammates = myState.players.filter(p =>
-    p.team === myState.team && p.name !== myName
-  );
-
-  document.getElementById('voteInstructions').textContent =
-    'Vote Round ' + myState.voteRound + ' \u2014 Who on Team ' + myState.team + ' do you suspect the most?';
-
-  const cardsHtml = teammates.map((p, i) =>
-    '<div class="vote-card" data-voteindex="' + i + '">' +
-    '<div class="vote-radio"></div>' +
-    '<span>' + esc(p.name) + '</span>' +
-    '</div>'
+  const teammates = myState.players.filter(p => p.team === myState.team && p.name !== myName);
+  document.getElementById('voteInstructions').textContent = 'Round ' + myState.voteRound + ' \u2014 Who on Team ' + myState.team + ' do you suspect the most?';
+  document.getElementById('voteCards').innerHTML = teammates.map((p, i) =>
+    '<div class="vote-card" data-voteindex="' + i + '"><div class="vote-radio"></div><span>' + esc(p.name) + '</span></div>'
   ).join('');
-  document.getElementById('voteCards').innerHTML = cardsHtml;
-
-  // Bind click handlers
   document.querySelectorAll('.vote-card').forEach(card => {
     card.addEventListener('click', function() {
       const idx = parseInt(this.getAttribute('data-voteindex'));
@@ -1573,12 +1251,7 @@ function renderVoteCards() {
 
 function selectVote(name) {
   selectedVote = name;
-  document.querySelectorAll('.vote-card').forEach(c => c.classList.remove('selected'));
-  document.querySelectorAll('.vote-card').forEach(c => {
-    if (c.querySelector('span').textContent === name) {
-      c.classList.add('selected');
-    }
-  });
+  document.querySelectorAll('.vote-card').forEach(c => { c.classList.toggle('selected', c.querySelector('span').textContent === name); });
   document.getElementById('submitVoteBtn').disabled = false;
 }
 
@@ -1592,96 +1265,58 @@ function submitVote() {
 
 function renderVoteResults() {
   if (!myState || !myState.voteResults) return;
-
-  const myTeam = myState.team;
-  const result = myState.voteResults[myTeam];
+  const result = myState.voteResults[myState.team];
   if (!result) return;
-
-  let html = '';
-
-  html += '<p style="font-size: 0.9rem; color: #9a9088; margin-bottom: 16px;">Team ' + myTeam + ' &mdash; Suspicion Tally</p>';
-
-  // Show tallies as bars
-  const tallies = result.tallies || {};
-  const entries = Object.entries(tallies).sort((a, b) => b[1] - a[1]);
-  const maxVotes = Math.max(1, ...entries.map(e => e[1]));
-
+  let html = '<p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:12px;">Team ' + myState.team + ' &mdash; Suspicion Tally</p>';
+  const entries = Object.entries(result.tallies||{}).sort((a,b) => b[1]-a[1]);
+  const max = Math.max(1, ...entries.map(e => e[1]));
   if (entries.length > 0) {
     html += '<div class="vote-tally">';
     entries.forEach(([name, count]) => {
-      const pct = (count / maxVotes * 100);
-      html += '<div class="tally-row">';
-      html += '<div class="tally-name">' + esc(name) + '</div>';
-      html += '<div class="tally-bar-wrap"><div class="tally-bar" style="width:' + pct + '%"></div></div>';
-      html += '<div class="tally-count">' + count + '</div>';
-      html += '</div>';
+      html += '<div class="tally-row"><div class="tally-name">' + esc(name) + '</div><div class="tally-bar-wrap"><div class="tally-bar" style="width:' + (count/max*100) + '%"></div></div><div class="tally-count">' + count + '</div></div>';
     });
     html += '</div>';
-  } else {
-    html += '<p style="color:#9a9088; text-align:center;">No votes were cast.</p>';
-  }
-
+  } else html += '<p style="color:var(--text-muted); text-align:center;">No votes cast.</p>';
   document.getElementById('voteResultsContent').innerHTML = html;
 }
 
 function renderGameOver() {
   if (!myState) return;
-
-  const winner = myState.winner;
-  const myTeam = myState.team;
-  const iWon = myTeam === winner;
-
+  const iWon = myState.team === myState.winner;
   let html = '';
-
   if (iWon) {
-    html += '<div class="outcome-card win">';
-    html += '<h2 style="color: #50c080;">Team ' + myTeam + ' Wins!</h2>';
-    html += '<p>Congratulations! Look to the host for the final reveal.</p>';
-    html += '</div>';
+    html += '<div class="outcome-card win"><h2 style="color:var(--green);">Victory Royale!</h2><p>Team ' + myState.team + ' wins! Look to the host for the final reveal.</p></div>';
   } else {
-    html += '<div class="outcome-card lose">';
-    html += '<h2 style="color: #e06050;">Team ' + myTeam + ' Lost</h2>';
-    html += '<p>Look to the host for the final reveal.</p>';
-    html += '</div>';
+    html += '<div class="outcome-card lose"><h2 style="color:var(--red);">Eliminated</h2><p>Team ' + myState.team + ' lost. Look to the host for the final reveal.</p></div>';
   }
-
   document.getElementById('gameOverContent').innerHTML = html;
 }
 
 // =====================================================
 // INIT
 // =====================================================
-
 if (isHost) {
   document.getElementById('playerApp').style.display = 'none';
   document.getElementById('hostApp').style.display = 'block';
 } else {
   document.getElementById('playerApp').style.display = 'flex';
   document.getElementById('hostApp').style.display = 'none';
-
-  // Try reconnection
+  // Auto-reconnect if we have saved session
   try {
-    const savedRoom = sessionStorage.getItem('traitors_room');
-    const savedName = sessionStorage.getItem('traitors_name');
+    const savedRoom = sessionStorage.getItem('lp_room');
+    const savedName = sessionStorage.getItem('lp_name');
     if (savedRoom && savedName) {
       document.getElementById('roomInput').value = savedRoom;
       document.getElementById('nameInput').value = savedName;
+      // Auto-rejoin
+      setTimeout(function() { attemptReconnect(); }, 500);
     }
   } catch(e) {}
 }
 
-// Enter key handling
-document.getElementById('roomInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') document.getElementById('nameInput').focus();
-});
-document.getElementById('nameInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') playerJoin();
-});
-
-// Auto-uppercase room code
-document.getElementById('roomInput').addEventListener('input', function() {
-  this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
-});
+document.getElementById('roomInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('nameInput').focus(); });
+document.getElementById('nameInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') playerJoin(); });
+document.getElementById('roomInput').addEventListener('input', function() { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
 </script>
 </body>
 </html>
