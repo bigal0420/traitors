@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>The Traitors</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0f;
+    color: #e8e0d4;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .screen { display: none; width: 100%; }
+  .screen.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: #9a9088;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .ornament {
+    font-size: 1.6rem;
+    color: #6b5c4d;
+    margin-bottom: 24px;
+    letter-spacing: 0.3em;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #2a2520;
+    border-radius: 8px;
+    background: #141218;
+    color: #e8e0d4;
+    outline: none;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+
+  input[type="text"]:focus { border-color: #6b5c4d; }
+  input[type="text"]::placeholder { color: #5a5550; }
+
+  .btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1.05rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-transform: uppercase;
+  }
+
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #4a3728, #6b4f3a);
+    color: #e8e0d4;
+    box-shadow: 0 4px 20px rgba(74, 55, 40, 0.4);
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #5c1a1a, #8b2020);
+    color: #f0d0d0;
+    box-shadow: 0 4px 20px rgba(139, 32, 32, 0.3);
+  }
+
+  .btn-blue {
+    background: linear-gradient(135deg, #1a3a4a, #205060);
+    color: #d0e8f0;
+    box-shadow: 0 4px 20px rgba(32, 80, 96, 0.3);
+  }
+
+  .btn-green {
+    background: linear-gradient(135deg, #1a4a2a, #207040);
+    color: #d0f0d8;
+    box-shadow: 0 4px 20px rgba(32, 96, 64, 0.3);
+  }
+
+  .btn-small {
+    width: auto;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    display: inline-block;
+    margin: 4px;
+  }
+
+  .error {
+    color: #d4604a;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    min-height: 20px;
+  }
+
+  .traitor-bg { background: radial-gradient(ellipse at top, #1a0808 0%, #0a0a0f 70%); }
+  .faithful-bg { background: radial-gradient(ellipse at top, #081018 0%, #0a0a0f 70%); }
+
+  .role-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .role-badge.traitor {
+    background: rgba(139, 32, 32, 0.3);
+    border: 1px solid rgba(200, 60, 60, 0.4);
+    color: #e06050;
+  }
+
+  .role-badge.faithful {
+    background: rgba(32, 80, 120, 0.3);
+    border: 1px solid rgba(60, 140, 200, 0.4);
+    color: #50a0d0;
+  }
+
+  .team-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .goal-box {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .goal-box.traitor {
+    background: rgba(139, 32, 32, 0.15);
+    border: 1px solid rgba(139, 32, 32, 0.25);
+  }
+
+  .goal-box.faithful {
+    background: rgba(32, 80, 120, 0.15);
+    border: 1px solid rgba(32, 80, 120, 0.25);
+  }
+
+  .goal-box strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  .fellow-traitors {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(139, 32, 32, 0.12);
+    border: 1px solid rgba(139, 32, 32, 0.2);
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .fellow-traitors h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #c06050;
+    margin-bottom: 10px;
+  }
+
+  .fellow-traitors .traitor-name {
+    padding: 6px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(139, 32, 32, 0.15);
+  }
+
+  .fellow-traitors .traitor-name:last-child { border-bottom: none; }
+  .fellow-traitors .traitor-team { color: #9a9088; font-size: 0.85rem; }
+
+  .voting-rules {
+    width: 100%;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(100, 90, 70, 0.1);
+    border: 1px solid rgba(100, 90, 70, 0.2);
+    margin-top: 8px;
+    text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #9a9088;
+  }
+
+  .voting-rules h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #b0a898;
+    margin-bottom: 8px;
+  }
+
+  .voting-rules ul { padding-left: 18px; }
+  .voting-rules li { margin-bottom: 4px; }
+
+  .warning-text {
+    color: #d4604a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .note-text {
+    color: #50a0d0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* Loading spinner */
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: #6b5c4d;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #2a2520;
+    border-top-color: #6b5c4d;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Host dashboard */
+  .host-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 24px;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .host-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .host-header h1 {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .stats-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    padding: 14px 10px;
+    border-radius: 10px;
+    background: #141218;
+    border: 1px solid #2a2520;
+    text-align: center;
+  }
+
+  .stat-card .num {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+  }
+
+  .stat-card .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9a9088;
+    margin-top: 4px;
+  }
+
+  .target-info {
+    text-align: center;
+    padding: 10px 14px;
+    background: rgba(139, 32, 32, 0.12);
+    border: 1px solid rgba(139, 32, 32, 0.2);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: #c09080;
+  }
+
+  .lock-status-bar {
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-radius: 8px;
+  }
+
+  .lock-status-bar.locked { background: rgba(139, 32, 32, 0.2); color: #e06050; }
+  .lock-status-bar.unlocked { background: rgba(32, 120, 80, 0.15); color: #50c080; }
+
+  .host-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+
+  .guest-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+  }
+
+  .guest-table th {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9a9088;
+    padding: 10px 8px;
+    text-align: left;
+    border-bottom: 1px solid #2a2520;
+    position: sticky;
+    top: 0;
+    background: #0a0a0f;
+  }
+
+  .guest-table td {
+    padding: 8px;
+    border-bottom: 1px solid #1a1818;
+    font-size: 0.85rem;
+  }
+
+  .guest-table .role-traitor { color: #e06050; font-weight: 600; }
+  .guest-table .role-faithful { color: #50a0d0; }
+</style>
+</head>
+<body>
+
+<!-- Loading -->
+<div class="loading" id="loadingScreen">
+  <div class="spinner"></div>
+  <div>Connecting...</div>
+</div>
+
+<!-- Player Screens -->
+<div class="container" id="playerApp" style="display:none;">
+
+  <!-- Landing -->
+  <div class="screen active" id="screenLanding">
+    <div class="ornament">&#9876; &#9876; &#9876;</div>
+    <h1>Welcome to the Game</h1>
+    <p class="subtitle">Enter your name to receive your secret role.<br>Open this alone &mdash; do not show anyone.</p>
+    <input type="text" id="nameInput" placeholder="Your name" autocomplete="off" autocapitalize="words" spellcheck="false">
+    <div class="error" id="nameError"></div>
+    <button class="btn btn-primary" id="submitBtn" onclick="submitName()">Continue</button>
+  </div>
+
+  <!-- Middle -->
+  <div class="screen" id="screenMiddle">
+    <div class="ornament">&#128065;</div>
+    <h2>Find a private spot.</h2>
+    <p class="subtitle" style="margin-bottom: 40px;">Do not show your screen to anyone.</p>
+    <button class="btn btn-primary" onclick="revealRole()">I'm alone &mdash; reveal my role</button>
+  </div>
+
+  <!-- Traitor -->
+  <div class="screen" id="screenTraitor">
+    <div class="ornament">&#128081;</div>
+    <h1 style="color: #e06050;">You Are a Traitor</h1>
+    <span class="role-badge traitor">Traitor</span>
+    <div class="team-badge" id="traitorTeam"></div>
+
+    <div class="goal-box traitor">
+      <strong>Your Mission</strong>
+      Sabotage your team in every game without getting caught. Make your team <b>LOSE</b>. Stay undetected until the very end.
+    </div>
+
+    <div class="fellow-traitors" id="fellowTraitors"></div>
+
+    <div class="goal-box traitor">
+      <strong>How You Win</strong>
+      If your team <b>LOSES</b> overall AND you were never voted out as suspected &mdash; you win the Victory Royale prize and everyone else goes home with nothing.
+    </div>
+
+    <div class="voting-rules">
+      <h3>Voting Rules</h3>
+      <ul>
+        <li>After each game, paper slips are handed out</li>
+        <li>Write one name from <b>your own team</b> &mdash; not yourself</li>
+        <li>Most votes = suspected &mdash; loses voting rights for the rest of the night</li>
+        <li>Still plays and drinks, just cannot vote and cannot win</li>
+        <li>Final vote: losing team only votes at the end</li>
+      </ul>
+    </div>
+
+    <div class="warning-text">Close this screen immediately after reading. Tell no one.</div>
+  </div>
+
+  <!-- Faithful -->
+  <div class="screen" id="screenFaithful">
+    <div class="ornament">&#128737;&#65039;</div>
+    <h1 style="color: #50a0d0;">You Are a Faithful</h1>
+    <span class="role-badge faithful">Faithful</span>
+    <div class="team-badge" id="faithfulTeam"></div>
+
+    <div class="goal-box faithful">
+      <strong>Your Mission</strong>
+      Help your team <b>WIN</b> every game. Watch your teammates closely. Find the traitors through voting.
+    </div>
+
+    <div class="goal-box faithful">
+      <strong>How You Win</strong>
+      If your team <b>WINS</b> overall &mdash; you share the prize. If all traitors on your team are detected through voting &mdash; your team wins regardless.
+    </div>
+
+    <div class="voting-rules">
+      <h3>Voting Rules</h3>
+      <ul>
+        <li>After each game, paper slips are handed out</li>
+        <li>Write one name from <b>your own team</b> who you think is the traitor &mdash; not yourself</li>
+        <li>Most votes = suspected &mdash; loses voting rights for the rest of the night</li>
+        <li>Still plays and drinks, just cannot vote and cannot win</li>
+        <li>Final vote: losing team only votes at the end</li>
+      </ul>
+    </div>
+
+    <div class="note-text">Stay alert. There are traitors hiding among you right now.</div>
+  </div>
+</div>
+
+<!-- Host Dashboard -->
+<div class="host-container" id="hostApp" style="display:none;">
+  <div class="host-header">
+    <h1>&#128081; Host Dashboard</h1>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="num" id="statTotal">0</div>
+      <div class="label">Total</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statTraitors" style="color:#e06050;">0</div>
+      <div class="label">Traitors</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statFaithfuls" style="color:#50a0d0;">0</div>
+      <div class="label">Faithfuls</div>
+    </div>
+  </div>
+
+  <div class="stats-row2">
+    <div class="stat-card">
+      <div class="num" id="statTeamA" style="color:#d4af37;">0</div>
+      <div class="label">Team A</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="statTeamB" style="color:#9370db;">0</div>
+      <div class="label">Team B</div>
+    </div>
+  </div>
+
+  <div class="target-info" id="targetInfo"></div>
+  <div class="lock-status-bar unlocked" id="lockStatusBar">Unlocked &mdash; Traitors can still be assigned</div>
+
+  <div class="host-actions">
+    <button class="btn btn-small btn-danger" id="lockBtn" onclick="toggleLock()">Lock</button>
+    <button class="btn btn-small btn-danger" onclick="resetGame()">Reset Game</button>
+  </div>
+
+  <table class="guest-table">
+    <thead>
+      <tr><th>Name</th><th>Team</th><th>Role</th><th>Time</th></tr>
+    </thead>
+    <tbody id="guestTableBody"></tbody>
+  </table>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+// =============================================================
+// FIREBASE CONFIG — Replace with your own Firebase project config
+// =============================================================
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "YOUR_APP_ID"
+};
+// =============================================================
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const guestsRef = db.ref('guests');
+const lockRef = db.ref('locked');
+
+// --- State ---
+let allGuests = [];
+let isLocked = false;
+let currentGuest = null;
+const isHost = new URLSearchParams(window.location.search).get('host') === '1';
+const SESSION_KEY = 'traitors_my_name';
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function traitorTarget(count) {
+  if (count <= 9) return 2;
+  if (count <= 15) return 3;
+  if (count <= 20) return 4;
+  return 5;
+}
+
+function pickTeam(guests) {
+  const a = guests.filter(g => g.team === 'A').length;
+  const b = guests.filter(g => g.team === 'B').length;
+  if (a < b) return 'A';
+  if (b < a) return 'B';
+  return Math.random() < 0.5 ? 'A' : 'B';
+}
+
+function assignRole(guests, team, locked) {
+  if (locked) return 'Faithful';
+  const totalAfter = guests.length + 1;
+  const target = traitorTarget(totalAfter);
+  const currentTraitors = guests.filter(g => g.role === 'Traitor');
+  if (currentTraitors.length >= target) return 'Faithful';
+
+  const traitorsA = currentTraitors.filter(g => g.team === 'A').length;
+  const traitorsB = currentTraitors.filter(g => g.team === 'B').length;
+
+  if (team === 'A' && traitorsA > traitorsB) return 'Faithful';
+  if (team === 'B' && traitorsB > traitorsA) return 'Faithful';
+
+  return 'Traitor';
+}
+
+function showScreen(id) {
+  document.querySelectorAll('#playerApp .screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.body.className = '';
+  if (id === 'screenTraitor') document.body.classList.add('traitor-bg');
+  if (id === 'screenFaithful') document.body.classList.add('faithful-bg');
+}
+
+function showRoleScreen(guest, guests) {
+  currentGuest = guest;
+  if (guest.role === 'Traitor') {
+    document.getElementById('traitorTeam').textContent = 'Team ' + guest.team;
+    const fellows = guests.filter(g => g.role === 'Traitor' && g.name !== guest.name);
+    const container = document.getElementById('fellowTraitors');
+    let html = '<h3>Fellow Traitors</h3>';
+    if (fellows.length > 0) {
+      fellows.forEach(f => {
+        html += '<div class="traitor-name">' + escHtml(f.name) + ' <span class="traitor-team">&mdash; Team ' + f.team + '</span></div>';
+      });
+    } else {
+      html += '<div class="traitor-name" style="color:#9a9088;font-style:italic;">No fellow traitors have scanned yet.</div>';
+    }
+    container.innerHTML = html;
+    showScreen('screenTraitor');
+  } else {
+    document.getElementById('faithfulTeam').textContent = 'Team ' + guest.team;
+    showScreen('screenFaithful');
+  }
+}
+
+// --- Player flow ---
+window.submitName = function() {
+  const input = document.getElementById('nameInput');
+  const name = input.value.trim();
+  const errEl = document.getElementById('nameError');
+  const btn = document.getElementById('submitBtn');
+
+  if (!name) { errEl.textContent = 'Please enter your name.'; return; }
+
+  if (allGuests.find(g => g.name.toLowerCase() === name.toLowerCase())) {
+    errEl.textContent = 'That name is taken. Try adding your last initial (e.g. "Sarah K").';
+    return;
+  }
+
+  errEl.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Joining...';
+
+  const team = pickTeam(allGuests);
+  const role = assignRole(allGuests, team, isLocked);
+
+  const guest = {
+    name: name,
+    team: team,
+    role: role,
+    timestamp: new Date().toISOString()
+  };
+
+  guestsRef.push(guest).then(function() {
+    currentGuest = guest;
+    try { sessionStorage.setItem(SESSION_KEY, name); } catch(e) {}
+    showScreen('screenMiddle');
+  }).catch(function(err) {
+    errEl.textContent = 'Connection error. Try again.';
+    btn.disabled = false;
+    btn.textContent = 'Continue';
+  });
+};
+
+window.revealRole = function() {
+  if (!currentGuest) {
+    try {
+      const savedName = sessionStorage.getItem(SESSION_KEY);
+      if (savedName) currentGuest = allGuests.find(g => g.name === savedName);
+    } catch(e) {}
+  }
+  if (!currentGuest) return;
+  showRoleScreen(currentGuest, allGuests);
+};
+
+// --- Host functions ---
+function renderHost() {
+  const guests = allGuests;
+  const traitors = guests.filter(g => g.role === 'Traitor');
+
+  document.getElementById('statTotal').textContent = guests.length;
+  document.getElementById('statTraitors').textContent = traitors.length;
+  document.getElementById('statFaithfuls').textContent = guests.filter(g => g.role === 'Faithful').length;
+  document.getElementById('statTeamA').textContent = guests.filter(g => g.team === 'A').length;
+  document.getElementById('statTeamB').textContent = guests.filter(g => g.team === 'B').length;
+
+  const target = traitorTarget(Math.max(guests.length, 1));
+  document.getElementById('targetInfo').textContent = 'Target: ' + target + ' traitors for ' + guests.length + ' guests';
+
+  const bar = document.getElementById('lockStatusBar');
+  const btn = document.getElementById('lockBtn');
+  if (isLocked) {
+    bar.textContent = 'LOCKED \u2014 No new traitors will be assigned';
+    bar.className = 'lock-status-bar locked';
+    btn.textContent = 'Unlock';
+    btn.className = 'btn btn-small btn-green';
+  } else {
+    bar.textContent = 'Unlocked \u2014 Traitors can still be assigned';
+    bar.className = 'lock-status-bar unlocked';
+    btn.textContent = 'Lock';
+    btn.className = 'btn btn-small btn-danger';
+  }
+
+  const tbody = document.getElementById('guestTableBody');
+  tbody.innerHTML = '';
+  guests.forEach(g => {
+    const time = new Date(g.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const cls = g.role === 'Traitor' ? 'role-traitor' : 'role-faithful';
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + escHtml(g.name) + '</td><td>Team ' + g.team + '</td><td class="' + cls + '">' + g.role + '</td><td>' + time + '</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+window.toggleLock = function() {
+  lockRef.set(!isLocked);
+};
+
+window.resetGame = function() {
+  if (confirm('Reset the entire game? This deletes ALL guest data.')) {
+    if (confirm('Are you absolutely sure? This cannot be undone.')) {
+      guestsRef.remove();
+      lockRef.set(false);
+    }
+  }
+};
+
+// --- Real-time listeners ---
+let initialLoad = 0;
+
+guestsRef.on('value', function(snap) {
+  const data = snap.val() || {};
+  allGuests = Object.values(data);
+  initialLoad++;
+
+  if (isHost) renderHost();
+
+  // If returning player, show their role
+  if (!isHost && !currentGuest && initialLoad === 1) {
+    try {
+      const savedName = sessionStorage.getItem(SESSION_KEY);
+      if (savedName) {
+        const guest = allGuests.find(g => g.name === savedName);
+        if (guest) {
+          currentGuest = guest;
+          showRoleScreen(guest, allGuests);
+        }
+      }
+    } catch(e) {}
+  }
+
+  // Update fellow traitors in real time if on traitor screen
+  if (currentGuest && currentGuest.role === 'Traitor' && document.getElementById('screenTraitor').classList.contains('active')) {
+    const fellows = allGuests.filter(g => g.role === 'Traitor' && g.name !== currentGuest.name);
+    const container = document.getElementById('fellowTraitors');
+    let html = '<h3>Fellow Traitors</h3>';
+    if (fellows.length > 0) {
+      fellows.forEach(f => {
+        html += '<div class="traitor-name">' + escHtml(f.name) + ' <span class="traitor-team">&mdash; Team ' + f.team + '</span></div>';
+      });
+    } else {
+      html += '<div class="traitor-name" style="color:#9a9088;font-style:italic;">No fellow traitors have scanned yet.</div>';
+    }
+    container.innerHTML = html;
+  }
+});
+
+lockRef.on('value', function(snap) {
+  isLocked = snap.val() === true;
+  if (isHost) renderHost();
+});
+
+// --- Show correct UI once connected ---
+db.ref('.info/connected').on('value', function(snap) {
+  if (snap.val() === true) {
+    document.getElementById('loadingScreen').style.display = 'none';
+    if (isHost) {
+      document.getElementById('hostApp').style.display = 'block';
+    } else {
+      document.getElementById('playerApp').style.display = 'flex';
+    }
+  }
+});
+
+// Fallback: show UI after 3 seconds even if connection event hasn't fired
+setTimeout(function() {
+  document.getElementById('loadingScreen').style.display = 'none';
+  if (isHost) {
+    document.getElementById('hostApp').style.display = 'block';
+  } else {
+    document.getElementById('playerApp').style.display = 'flex';
+  }
+}, 3000);
+
+// Enter key submits
+document.getElementById('nameInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') window.submitName();
+});
+</script>
+</body>
+</html>
