@@ -812,7 +812,16 @@ function hostCreateRoom() {
   document.getElementById('moleCountDisplay').textContent = '2';
 
   const peerId = 'lexioparty-' + roomCode.toLowerCase();
-  hostPeer = new Peer(peerId);
+  hostPeer = new Peer(peerId, {
+    config: { iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' },
+      { urls: 'stun:stun2.l.google.com:19302' },
+      { urls: 'turn:global.relay.metered.ca:80', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' },
+      { urls: 'turn:global.relay.metered.ca:443', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' },
+      { urls: 'turns:global.relay.metered.ca:443', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' }
+    ]}
+  });
 
   hostPeer.on('open', function() {
     showHostSection('hostLobby');
@@ -1079,7 +1088,16 @@ function playerJoin() {
 
   if (playerPeer && !playerPeer.destroyed) playerPeer.destroy();
 
-  playerPeer = new Peer();
+  playerPeer = new Peer(null, {
+    config: { iceServers: [
+      { urls: 'stun:stun.l.google.com:19302' },
+      { urls: 'stun:stun1.l.google.com:19302' },
+      { urls: 'stun:stun2.l.google.com:19302' },
+      { urls: 'turn:global.relay.metered.ca:80', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' },
+      { urls: 'turn:global.relay.metered.ca:443', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' },
+      { urls: 'turns:global.relay.metered.ca:443', username: 'e7e5de3db38db0e43ccbab09', credential: 'qvlApz/Tr7jFbktH' }
+    ]}
+  });
   playerPeer.on('open', function() {
     const hostId = 'lexioparty-' + code.toLowerCase();
     playerConn = playerPeer.connect(hostId, { reliable: true });
